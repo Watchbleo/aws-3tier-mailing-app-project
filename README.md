@@ -302,7 +302,7 @@ In this runbook, we will implement the PHP Mailing deployment with multi-tier ar
 ```eval 'ssh-agent -s'```
 
 ```ssh-agent bash```
-
+create the key-pair file in your home directory: go to your Downloads in local open with Notepad and copy the key-pair to paste in your instance file: vi "your bastion-instance keypair" (home directory).
 #### ssh-add -L    
 - (Once you run this command it will tell you if you have added some identities to SSH agen or not. If not run the bellow command to add identity or private key) 
 ```ssh-add -k "Absolute Path to your Private key file on your Local"```
