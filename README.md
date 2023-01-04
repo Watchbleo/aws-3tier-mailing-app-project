@@ -297,12 +297,16 @@ In this runbook, we will implement the PHP Mailing deployment with multi-tier ar
     - Click `LAUNCH INSTANCE`
 
 ### Setup SSH Port Forwarding Between Your Local and Bastion Host To Point at The Web, App and DB Instance.
+# from Download file on your local PC create an Agent:
+
 ```exec ssh-agent bash``` 
+
+check if the agent was successfully created:
 
 ```eval 'ssh-agent -s'```
 
 ```ssh-agent bash```
-create the key-pair file in your home directory: go to your Downloads in local open with Notepad and copy the key-pair to paste in your instance file: vi "your bastion-instance keypair" (home directory).
+Then connect to your Bastion host instance: ssh-add -k "Absolute Path to your Private key file on your Local"``` ( if located in Download: ./keypairname)
 #### ssh-add -L    
 - (Once you run this command it will tell you if you have added some identities to SSH agen or not. If not run the bellow command to add identity or private key) 
 ```ssh-add -k "Absolute Path to your Private key file on your Local"```
@@ -312,11 +316,11 @@ Now run the above command to check added identities or Private keys
 
 - Now we have to use this SSH Agent Identity to login to our bastion in the public subnet then we'll be able to login to our private server 
 
-#### ssh -A -i "private key" USER_NAME@HostNameORipAddress
+#### ssh -A -i keypairName USER_NAME@HostNameORipAddress (public ip of the Bastion Host)
 ```ssh -A -i "private key" USER_NAME@HostNameORipAddress```
 - (-A stands for AGENT FORWARDING. And once you get into the instance in the Bastion host using the SSH AGENT Identity, when you try to SSH into the instance in the private subnet now, what SSH AGENT will do is. It will make use of the Identity in your local machine to access the server. Then you'll be authenticated) 
 
-#### ssh USER_NAME@IPAddress
+#### ssh USER_NAME@IPAddress (private ip of your privateInstance)
 ```ssh USER_NAME@"Private Instance IP Address"```
 - (Once you run this command you will be allowed into the server. That is SSH Agent port fording. It makes use of the locally stored Identity). 
 
